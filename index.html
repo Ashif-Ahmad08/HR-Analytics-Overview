@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Khana Khazana – HR Analytics Dashboard</title>
+  <meta name="description" content="Digital HR Solution for Khana Khazana Food, Phagwara – Workforce Planning, Recruitment, Training & Performance Dashboard"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="locked">
+
+<div class="food-atmosphere" aria-hidden="true">
+  <span class="food-float food-float-one">🥗</span>
+  <span class="food-float food-float-two">🥦</span>
+  <span class="food-float food-float-three">🥕</span>
+  <span class="food-float food-float-four">🍅</span>
+  <span class="food-float food-float-five">🌽</span>
+  <span class="food-float food-float-six">🍆</span>
+  <span class="food-float food-float-seven">🥒</span>
+  <span class="food-float food-float-eight">🫑</span>
+  <span class="food-float food-float-nine">🍄</span>
+  <span class="food-float food-float-ten">🧅</span>
+</div>
+
+<!-- ════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-bg">
+    <div class="food-atmosphere" aria-hidden="true">
+      <span class="food-float food-float-one">🥗</span>
+      <span class="food-float food-float-two">🥦</span>
+      <span class="food-float food-float-three">🥕</span>
+      <span class="food-float food-float-four">🍅</span>
+      <span class="food-float food-float-five">🌽</span>
+      <span class="food-float food-float-six">🍆</span>
+      <span class="food-float food-float-seven">🥒</span>
+      <span class="food-float food-float-eight">🫑</span>
+      <span class="food-float food-float-nine">🍄</span>
+      <span class="food-float food-float-ten">🧅</span>
+    </div>
+    <div class="login-orb orb1"></div>
+    <div class="login-orb orb2"></div>
+    <div class="login-orb orb3"></div>
+  </div>
+  <div class="login-card">
+    <!-- Brand -->
+    <div class="login-brand">
+      <div class="login-logo">🍛</div>
+      <h1 class="login-title">Khana Khazana</h1>
+      <p class="login-subtitle">HR Analytics Command Center</p>
+    </div>
+
+    <!-- Welcome -->
+    <div class="login-welcome">
+      <div class="lw-icon">👋</div>
+      <div>
+        <div class="lw-heading">Welcome Back</div>
+        <div class="lw-sub">Sign in to access the HR dashboard</div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form class="login-form" id="login-form" onsubmit="handleLogin(event)">
+      <div class="lf-group">
+        <label for="login-user">Username</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">👤</span>
+          <input type="text" id="login-user" placeholder="Enter username" autocomplete="username" required/>
+        </div>
+      </div>
+      <div class="lf-group">
+        <label for="login-pass">Password</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">🔒</span>
+          <input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password" required/>
+          <button type="button" class="lf-eye" onclick="togglePass()" id="eye-btn">👁</button>
+        </div>
+      </div>
+      <div class="lf-options">
+        <label class="lf-remember">
+          <input type="checkbox" id="remember-me"/> Remember me
+        </label>
+        <span class="lf-forgot">Forgot password?</span>
+      </div>
+      <div class="login-error" id="login-error">⚠ Invalid username or password</div>
+      <button type="submit" class="login-btn" id="login-btn">
+        <span id="login-btn-text">Sign In</span>
+        <span id="login-spinner" class="login-spinner" style="display:none">⟳</span>
+      </button>
+    </form>
+
+    <form class="login-form signup-form" id="signup-form" onsubmit="handleSignup(event)" hidden>
+      <div class="lf-group">
+        <label for="signup-name">Full name</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">👤</span>
+          <input type="text" id="signup-name" placeholder="Enter your full name" autocomplete="name" maxlength="80" required/>
+        </div>
+      </div>
+      <div class="lf-group">
+        <label for="signup-email">Work email</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">✉</span>
+          <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" maxlength="120" required/>
+        </div>
+      </div>
+      <div class="lf-group">
+        <label for="signup-user">Username</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">🪪</span>
+          <input type="text" id="signup-user" placeholder="Choose a username" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9._\-]+" title="Use 3–24 letters, numbers, dots, underscores or hyphens" required/>
+        </div>
+      </div>
+      <div class="lf-group">
+        <label for="signup-pass">Password</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">🔒</span>
+          <input type="password" id="signup-pass" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required/>
+        </div>
+      </div>
+      <div class="lf-group">
+        <label for="signup-confirm">Confirm password</label>
+        <div class="lf-input-wrap">
+          <span class="lf-icon">🔒</span>
+          <input type="password" id="signup-confirm" placeholder="Re-enter your password" autocomplete="new-password" minlength="8" required/>
+        </div>
+      </div>
+      <div class="login-error" id="signup-error" role="alert"></div>
+      <button type="submit" class="login-btn" id="signup-btn">
+        <span id="signup-btn-text">Create Account</span>
+        <span id="signup-spinner" class="login-spinner" style="display:none">⟳</span>
+      </button>
+    </form>
+
+    <div class="auth-switch">
+      <span id="auth-switch-prompt">New to Khazana Food?</span>
+      <button type="button" id="auth-switch-btn" onclick="toggleAuthMode()">Create account</button>
+    </div>
+
+    <!-- Demo Credentials -->
+    <div class="login-demo">
+      <div class="demo-title">Demo Credentials</div>
+      <div class="demo-accounts">
+        <div class="demo-acc" onclick="fillCreds('admin','admin123')">
+          <div class="da-avatar" style="background:linear-gradient(135deg,#f59e0b,#f97316)">A</div>
+          <div><div class="da-name">Admin</div><div class="da-role">HR Manager</div></div>
+          <div class="da-cred">admin / admin123</div>
+        </div>
+        <div class="demo-acc" onclick="fillCreds('ashif','staff2026')">
+          <div class="da-avatar" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">AS</div>
+          <div><div class="da-name">Ashif Ahmad</div><div class="da-role">HR Analyst</div></div>
+          <div class="da-cred">ashif / staff2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="login-footer">
+      Khana Khazana · HR Analytics Command Center
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">🍛</div>
+    <div class="brand-text">
+      <span class="brand-name">Khana Khazana</span>
+      <span class="brand-sub">HR Command Center</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" onclick="showPage('overview')" id="nav-overview">
+      <span class="nav-icon">🏠</span><span>Overview</span>
+    </button>
+    <button class="nav-item" onclick="showPage('workforce')" id="nav-workforce">
+      <span class="nav-icon">👥</span><span>Workforce Planning</span>
+    </button>
+    <button class="nav-item" onclick="showPage('recruitment')" id="nav-recruitment">
+      <span class="nav-icon">🎯</span><span>Recruitment</span>
+    </button>
+    <button class="nav-item" onclick="showPage('training')" id="nav-training">
+      <span class="nav-icon">📚</span><span>Training Tracker</span>
+    </button>
+    <button class="nav-item" onclick="showPage('performance')" id="nav-performance">
+      <span class="nav-icon">⭐</span><span>Performance</span>
+    </button>
+    <button class="nav-item" onclick="showPage('attendance')" id="nav-attendance">
+      <span class="nav-icon">📅</span><span>Attendance & Leave</span>
+    </button>
+    <button class="nav-item" onclick="showPage('challenges')" id="nav-challenges">
+      <span class="nav-icon">⚡</span><span>HR Challenges</span>
+    </button>
+    <button class="nav-item" onclick="showPage('profile')" id="nav-profile">
+      <span class="nav-icon">👤</span><span>My Profile</span>
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="org-card">
+      <div class="org-avatar">KK</div>
+      <div>
+        <div class="org-name">Khazana Food</div>
+        <div class="org-loc">Phagwara, Punjab</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="hamburger" onclick="toggleSidebar()" id="hamburger">☰</button>
+  <div class="topbar-title" id="topbar-title">HR Overview Dashboard</div>
+  <div class="topbar-right">
+    <div class="topbar-badge">
+      <span class="pulse-dot"></span>Live Data
+    </div>
+    <div class="topbar-date" id="topbar-date"></div>
+    <button class="topbar-avatar" onclick="showPage('profile')" id="topbar-avatar-btn" title="My Profile">
+      <div class="ta-ring">
+        <span id="ta-initials">AA</span>
+      </div>
+    </button>
+    <button class="topbar-logout" onclick="handleLogout()" title="Logout">⏻</button>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- ====== PAGE: OVERVIEW ====== -->
+  <section class="page active" id="page-overview">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">HR Analytics Overview</h1>
+        <p class="page-sub">Khana Khazana · Banga Road, Phagwara, Punjab · Vegetarian Restaurant</p>
+      </div>
+      <div class="header-badge">HR Management Dashboard</div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-value counter" data-target="24">0</div>
+        <div class="kpi-label">Total Employees</div>
+        <div class="kpi-trend up">+2 planned hires</div>
+      </div>
+      <div class="kpi-card kpi-orange">
+        <div class="kpi-icon">🍳</div>
+        <div class="kpi-value counter" data-target="6">0</div>
+        <div class="kpi-label">Departments</div>
+        <div class="kpi-trend neutral">Fully Operational</div>
+      </div>
+      <div class="kpi-card kpi-green">
+        <div class="kpi-icon">📈</div>
+        <div class="kpi-value">78<span style="font-size:1.2rem">%</span></div>
+        <div class="kpi-label">Staff Efficiency</div>
+        <div class="kpi-trend up">↑ 6% this month</div>
+      </div>
+      <div class="kpi-card kpi-red">
+        <div class="kpi-icon">⚠️</div>
+        <div class="kpi-value counter" data-target="3">0</div>
+        <div class="kpi-label">HR Challenges</div>
+        <div class="kpi-trend down">Action Required</div>
+      </div>
+      <div class="kpi-card kpi-purple">
+        <div class="kpi-icon">🎓</div>
+        <div class="kpi-value">92<span style="font-size:1.2rem">%</span></div>
+        <div class="kpi-label">Training Compliance</div>
+        <div class="kpi-trend up">↑ On Track</div>
+      </div>
+      <div class="kpi-card kpi-teal">
+        <div class="kpi-icon">📅</div>
+        <div class="kpi-value">94<span style="font-size:1.2rem">%</span></div>
+        <div class="kpi-label">Attendance Rate</div>
+        <div class="kpi-trend up">↑ Above Target</div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <h3>Workforce by Department</h3>
+          <span class="chart-badge">Current vs Required</span>
+        </div>
+        <canvas id="deptChart" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Employee Categories</h3>
+        </div>
+        <canvas id="categoryChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Org Profile -->
+    <div class="info-grid">
+      <div class="info-card">
+        <h3 class="info-title">🏢 Organization Profile</h3>
+        <table class="info-table">
+          <tr><td>Name</td><td><strong>Khazana Food</strong></td></tr>
+          <tr><td>Industry</td><td>Restaurant / Food Service</td></tr>
+          <tr><td>Location</td><td>Banga Road, Hargobind Nagar, Phagwara</td></tr>
+          <tr><td>Nature</td><td>Vegetarian Restaurant</td></tr>
+          <tr><td>Services</td><td>Dine-in, Takeaway, Delivery</td></tr>
+          <tr><td>Cuisine</td><td>Indian, Chinese, Continental</td></tr>
+          <tr><td>Total Staff</td><td><strong>24 Employees</strong></td></tr>
+        </table>
+      </div>
+      <div class="info-card">
+        <h3 class="info-title">🎯 Vision & Mission</h3>
+        <div class="vision-box">
+          <div class="vm-label">Vision</div>
+          <p>To serve high-quality vegetarian food with a satisfying dining experience while maintaining consistent service standards.</p>
+        </div>
+        <div class="mission-box">
+          <div class="vm-label">Mission</div>
+          <p>To provide fresh, good-quality food with efficient customer service while maintaining a clean and comfortable environment.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <h3 class="info-title">🎯 Strategic Objectives</h3>
+        <ul class="obj-list">
+          <li><span class="obj-dot"></span>Offer quality food to all customers</li>
+          <li><span class="obj-dot"></span>Maintain high customer satisfaction</li>
+          <li><span class="obj-dot"></span>Deliver fast and helpful service</li>
+          <li><span class="obj-dot"></span>Uphold food and service standards</li>
+          <li><span class="obj-dot"></span>Build a reliable, skilled workforce</li>
+          <li><span class="obj-dot"></span>Enhance customer retention & growth</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: WORKFORCE ====== -->
+  <section class="page" id="page-workforce">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Workforce Planning Dashboard</h1>
+        <p class="page-sub">Current vs Future manpower analysis across all departments</p>
+      </div>
+      <button class="export-btn" onclick="exportReport()">⬇ Export Report</button>
+    </div>
+
+    <!-- Workforce KPIs -->
+    <div class="kpi-grid four-col">
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">🧑‍💼</div><div class="kpi-value">24</div><div class="kpi-label">Current Staff</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">📊</div><div class="kpi-value">26</div><div class="kpi-label">Future Required</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-icon">⚡</div><div class="kpi-value">02</div><div class="kpi-label">Workforce Gap</div></div>
+      <div class="kpi-card kpi-purple"><div class="kpi-icon">✅</div><div class="kpi-value">92%</div><div class="kpi-label">Coverage Rate</div></div>
+    </div>
+
+    <!-- Dept Table -->
+    <div class="card">
+      <h3 class="card-title">📋 Department-wise Manpower Analysis</h3>
+      <div class="table-wrap">
+        <table class="data-table" id="workforceTable">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Current Staff</th>
+              <th>Future Required</th>
+              <th>Gap</th>
+              <th>Category</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="dept-dot kitchen"></span>Kitchen / Chefs</td>
+              <td class="num">07</td><td class="num">07</td><td class="num gap-ok">0</td>
+              <td><span class="tag tag-skill">Skilled</span></td>
+              <td><span class="status-badge ok">✔ Adequate</span></td>
+            </tr>
+            <tr>
+              <td><span class="dept-dot service"></span>Customer Service</td>
+              <td class="num">06</td><td class="num">07</td><td class="num gap-warn">+1</td>
+              <td><span class="tag tag-ops">Operational</span></td>
+              <td><span class="status-badge warn">⚠ Hire Needed</span></td>
+            </tr>
+            <tr>
+              <td><span class="dept-dot delivery"></span>Delivery</td>
+              <td class="num">04</td><td class="num">05</td><td class="num gap-warn">+1</td>
+              <td><span class="tag tag-ops">Operational</span></td>
+              <td><span class="status-badge warn">⚠ Hire Needed</span></td>
+            </tr>
+            <tr>
+              <td><span class="dept-dot support"></span>Cleaning / Support</td>
+              <td class="num">03</td><td class="num">03</td><td class="num gap-ok">0</td>
+              <td><span class="tag tag-supp">Support</span></td>
+              <td><span class="status-badge ok">✔ Adequate</span></td>
+            </tr>
+            <tr>
+              <td><span class="dept-dot mgmt"></span>Management</td>
+              <td class="num">02</td><td class="num">02</td><td class="num gap-ok">0</td>
+              <td><span class="tag tag-mgmt">Managerial</span></td>
+              <td><span class="status-badge ok">✔ Adequate</span></td>
+            </tr>
+            <tr>
+              <td><span class="dept-dot admin"></span>Accounts / Admin</td>
+              <td class="num">02</td><td class="num">02</td><td class="num gap-ok">0</td>
+              <td><span class="tag tag-admin">Administrative</span></td>
+              <td><span class="status-badge ok">✔ Adequate</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td><strong>Total</strong></td>
+              <td class="num"><strong>24</strong></td>
+              <td class="num"><strong>26</strong></td>
+              <td class="num gap-warn"><strong>+2</strong></td>
+              <td>–</td>
+              <td><span class="status-badge info">📌 Plan 2 Hires</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Staff Gap Analysis by Department</h3></div>
+        <canvas id="gapChart" height="180"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Workforce Distribution</h3></div>
+        <canvas id="wfDistChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Org Chart -->
+    <div class="card">
+      <h3 class="card-title">🏗 Organizational Structure</h3>
+      <div class="org-chart">
+        <div class="org-node root">
+          <div class="org-box root-box">Restaurant Owner / Manager</div>
+          <div class="org-children">
+            <div class="org-branch">
+              <div class="org-box dept-box kitchen-box">Kitchen (7)</div>
+              <div class="org-sub-children">
+                <div class="org-box role-box">Head Chef</div>
+                <div class="org-box role-box">Sous Chef</div>
+                <div class="org-box role-box">Cook Staff (5)</div>
+              </div>
+            </div>
+            <div class="org-branch">
+              <div class="org-box dept-box service-box">Service (6)</div>
+              <div class="org-sub-children">
+                <div class="org-box role-box">Floor Manager</div>
+                <div class="org-box role-box">Waiters (5)</div>
+              </div>
+            </div>
+            <div class="org-branch">
+              <div class="org-box dept-box delivery-box">Delivery (4)</div>
+              <div class="org-sub-children">
+                <div class="org-box role-box">Delivery Staff (4)</div>
+              </div>
+            </div>
+            <div class="org-branch">
+              <div class="org-box dept-box support-box">Support (3)</div>
+              <div class="org-sub-children">
+                <div class="org-box role-box">Cleaning Staff (3)</div>
+              </div>
+            </div>
+            <div class="org-branch">
+              <div class="org-box dept-box admin-box">Admin (2)</div>
+              <div class="org-sub-children">
+                <div class="org-box role-box">Accounts (2)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: RECRUITMENT ====== -->
+  <section class="page" id="page-recruitment">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Recruitment Analytics Dashboard</h1>
+        <p class="page-sub">Hiring pipeline, open positions and recruitment effectiveness</p>
+      </div>
+      <button class="export-btn" onclick="openAddCandidateModal()">+ Add Candidate</button>
+    </div>
+
+    <!-- Recruitment KPIs -->
+    <div class="kpi-grid four-col">
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">📋</div><div class="kpi-value">2</div><div class="kpi-label">Open Positions</div><div class="kpi-trend down">Urgent Hires</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-icon">👤</div><div class="kpi-value" id="candidateCount">8</div><div class="kpi-label">Active Candidates</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">✅</div><div class="kpi-value">65%</div><div class="kpi-label">Selection Rate</div><div class="kpi-trend up">Above Average</div></div>
+      <div class="kpi-card kpi-purple"><div class="kpi-icon">⏱</div><div class="kpi-value">12</div><div class="kpi-label">Avg Days to Hire</div></div>
+    </div>
+
+    <!-- Pipeline + Chart -->
+    <div class="charts-row">
+      <div class="card wide">
+        <h3 class="card-title">🔄 Recruitment Pipeline</h3>
+        <div class="pipeline">
+          <div class="pipeline-stage" style="--clr:#f97316">
+            <div class="ps-number">15</div>
+            <div class="ps-bar" style="width:100%;background:#f97316"></div>
+            <div class="ps-label">Applications</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="--clr:#eab308">
+            <div class="ps-number">10</div>
+            <div class="ps-bar" style="width:67%;background:#eab308"></div>
+            <div class="ps-label">Screening</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="--clr:#3b82f6">
+            <div class="ps-number">8</div>
+            <div class="ps-bar" style="width:53%;background:#3b82f6"></div>
+            <div class="ps-label">Interview</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="--clr:#10b981">
+            <div class="ps-number">5</div>
+            <div class="ps-bar" style="width:33%;background:#10b981"></div>
+            <div class="ps-label">Shortlisted</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage" style="--clr:#8b5cf6">
+            <div class="ps-number">2</div>
+            <div class="ps-bar" style="width:13%;background:#8b5cf6"></div>
+            <div class="ps-label">Offer</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Source of Hire</h3></div>
+        <canvas id="sourceChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Open Positions -->
+    <div class="card">
+      <h3 class="card-title">📌 Open Positions</h3>
+      <div class="jobs-grid">
+        <div class="job-card urgent">
+          <div class="job-tag">URGENT</div>
+          <div class="job-title">Service Staff</div>
+          <div class="job-dept">Customer Service Dept.</div>
+          <div class="job-meta"><span>👥 1 Opening</span><span>📍 Phagwara</span><span>💼 Full-time</span></div>
+          <div class="job-skills">Customer Service · Communication · Hindi/Punjabi</div>
+          <div class="job-progress">
+            <div class="jp-label">Recruitment Progress</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+            <span class="jp-pct">60%</span>
+          </div>
+        </div>
+        <div class="job-card urgent">
+          <div class="job-tag">URGENT</div>
+          <div class="job-title">Delivery Executive</div>
+          <div class="job-dept">Delivery Department</div>
+          <div class="job-meta"><span>👥 1 Opening</span><span>📍 Phagwara</span><span>💼 Full-time</span></div>
+          <div class="job-skills">Bike Riding · Route Knowledge · Punctuality</div>
+          <div class="job-progress">
+            <div class="jp-label">Recruitment Progress</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+            <span class="jp-pct">40%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidate Table -->
+    <div class="card">
+      <h3 class="card-title">👤 Candidate Tracker</h3>
+      <div class="table-wrap">
+        <table class="data-table" id="candidateTable">
+          <thead>
+            <tr><th>#</th><th>Name</th><th>Position Applied</th><th>Source</th><th>Stage</th><th>Interview Date</th><th>Status</th></tr>
+          </thead>
+          <tbody id="candidateBody">
+            <tr><td>1</td><td>Rahul Sharma</td><td>Service Staff</td><td>Referral</td><td>Interview</td><td>02 Nov 2026</td><td><span class="status-badge ok">Shortlisted</span></td></tr>
+            <tr><td>2</td><td>Priya Singh</td><td>Service Staff</td><td>Walk-in</td><td>Screening</td><td>–</td><td><span class="status-badge warn">Pending</span></td></tr>
+            <tr><td>3</td><td>Amit Kumar</td><td>Delivery Executive</td><td>Referral</td><td>Interview</td><td>03 Nov 2026</td><td><span class="status-badge ok">Shortlisted</span></td></tr>
+            <tr><td>4</td><td>Gurpreet Singh</td><td>Delivery Executive</td><td>Local Contact</td><td>Offer</td><td>01 Nov 2026</td><td><span class="status-badge info">Offer Sent</span></td></tr>
+            <tr><td>5</td><td>Neha Verma</td><td>Service Staff</td><td>Walk-in</td><td>Screening</td><td>–</td><td><span class="status-badge warn">Pending</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add Candidate Modal -->
+    <div class="modal-overlay" id="addCandidateModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Add New Candidate</h3>
+          <button class="modal-close" onclick="closeModal('addCandidateModal')">✕</button>
+        </div>
+        <form class="modal-form" onsubmit="addCandidate(event)">
+          <div class="form-row">
+            <label>Full Name</label>
+            <input type="text" id="cand-name" placeholder="Enter candidate name" required/>
+          </div>
+          <div class="form-row">
+            <label>Position Applied</label>
+            <select id="cand-position">
+              <option>Service Staff</option>
+              <option>Delivery Executive</option>
+              <option>Kitchen Staff</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Source</label>
+            <select id="cand-source">
+              <option>Referral</option>
+              <option>Walk-in</option>
+              <option>Local Contact</option>
+              <option>Online Job Portal</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Interview Date</label>
+            <input type="date" id="cand-date"/>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="closeModal('addCandidateModal')">Cancel</button>
+            <button type="submit" class="btn-primary">Add Candidate</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: TRAINING ====== -->
+  <section class="page" id="page-training">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Employee Training Tracker</h1>
+        <p class="page-sub">Monitor on-the-job training progress and skill development for all staff</p>
+      </div>
+      <button class="export-btn" onclick="openAddTrainingModal()">+ Assign Training</button>
+    </div>
+
+    <!-- Training KPIs -->
+    <div class="kpi-grid four-col">
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">🎓</div><div class="kpi-value">24</div><div class="kpi-label">Employees Enrolled</div></div>
+      <div class="kpi-card kpi-green"><div class="kpi-icon">✅</div><div class="kpi-value">22</div><div class="kpi-label">Completed Training</div><div class="kpi-trend up">92% Rate</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-icon">⏳</div><div class="kpi-value">2</div><div class="kpi-label">In Progress</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-icon">📋</div><div class="kpi-value">5</div><div class="kpi-label">Modules Available</div></div>
+    </div>
+
+    <!-- Training Modules -->
+    <div class="card">
+      <h3 class="card-title">📚 Training Modules</h3>
+      <div class="modules-grid">
+        <div class="module-card" data-progress="100">
+          <div class="module-icon">🍳</div>
+          <div class="module-info">
+            <div class="module-title">Food Handling & Hygiene</div>
+            <div class="module-dept">Kitchen Staff</div>
+            <div class="module-progress-bar"><div class="module-fill" style="width:100%"></div></div>
+            <div class="module-stat">7/7 Completed · 100%</div>
+          </div>
+          <span class="status-badge ok">Done</span>
+        </div>
+        <div class="module-card" data-progress="83">
+          <div class="module-icon">🤝</div>
+          <div class="module-info">
+            <div class="module-title">Customer Service Skills</div>
+            <div class="module-dept">Service Staff</div>
+            <div class="module-progress-bar"><div class="module-fill" style="width:83%"></div></div>
+            <div class="module-stat">5/6 Completed · 83%</div>
+          </div>
+          <span class="status-badge warn">Ongoing</span>
+        </div>
+        <div class="module-card" data-progress="100">
+          <div class="module-icon">🛵</div>
+          <div class="module-info">
+            <div class="module-title">Delivery Protocol & Safety</div>
+            <div class="module-dept">Delivery Staff</div>
+            <div class="module-progress-bar"><div class="module-fill" style="width:100%"></div></div>
+            <div class="module-stat">4/4 Completed · 100%</div>
+          </div>
+          <span class="status-badge ok">Done</span>
+        </div>
+        <div class="module-card" data-progress="75">
+          <div class="module-icon">📱</div>
+          <div class="module-info">
+            <div class="module-title">POS & Order Management</div>
+            <div class="module-dept">Service + Admin</div>
+            <div class="module-progress-bar"><div class="module-fill" style="width:75%"></div></div>
+            <div class="module-stat">6/8 Completed · 75%</div>
+          </div>
+          <span class="status-badge warn">Ongoing</span>
+        </div>
+        <div class="module-card" data-progress="100">
+          <div class="module-icon">🧹</div>
+          <div class="module-info">
+            <div class="module-title">Workplace Safety & Cleaning</div>
+            <div class="module-dept">Support Staff</div>
+            <div class="module-progress-bar"><div class="module-fill" style="width:100%"></div></div>
+            <div class="module-stat">3/3 Completed · 100%</div>
+          </div>
+          <span class="status-badge ok">Done</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Training Completion by Department</h3></div>
+        <canvas id="trainingChart" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Overall Training Status</h3></div>
+        <canvas id="trainingStatusChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Employee Training Table -->
+    <div class="card">
+      <h3 class="card-title">👨‍💼 Employee Training Records</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>#</th><th>Employee</th><th>Department</th><th>Module</th><th>Start Date</th><th>Status</th><th>Score</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Suresh Kumar</td><td>Kitchen</td><td>Food Handling & Hygiene</td><td>01 Sep 2026</td><td><span class="status-badge ok">Completed</span></td><td><strong>94%</strong></td></tr>
+            <tr><td>2</td><td>Manjit Singh</td><td>Kitchen</td><td>Food Handling & Hygiene</td><td>01 Sep 2026</td><td><span class="status-badge ok">Completed</span></td><td><strong>89%</strong></td></tr>
+            <tr><td>3</td><td>Anita Devi</td><td>Service</td><td>Customer Service Skills</td><td>05 Sep 2026</td><td><span class="status-badge warn">In Progress</span></td><td>–</td></tr>
+            <tr><td>4</td><td>Ravi Sharma</td><td>Delivery</td><td>Delivery Protocol & Safety</td><td>03 Sep 2026</td><td><span class="status-badge ok">Completed</span></td><td><strong>91%</strong></td></tr>
+            <tr><td>5</td><td>Harpreet Kaur</td><td>Service</td><td>POS & Order Management</td><td>08 Sep 2026</td><td><span class="status-badge warn">In Progress</span></td><td>–</td></tr>
+            <tr><td>6</td><td>Dinesh Yadav</td><td>Support</td><td>Workplace Safety</td><td>02 Sep 2026</td><td><span class="status-badge ok">Completed</span></td><td><strong>88%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add Training Modal -->
+    <div class="modal-overlay" id="addTrainingModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Assign Training Module</h3>
+          <button class="modal-close" onclick="closeModal('addTrainingModal')">✕</button>
+        </div>
+        <form class="modal-form" onsubmit="addTraining(event)">
+          <div class="form-row">
+            <label>Employee Name</label>
+            <input type="text" id="train-emp" placeholder="Enter employee name" required/>
+          </div>
+          <div class="form-row">
+            <label>Department</label>
+            <select id="train-dept">
+              <option>Kitchen</option><option>Service</option><option>Delivery</option>
+              <option>Support</option><option>Management</option><option>Admin</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Training Module</label>
+            <select id="train-module">
+              <option>Food Handling & Hygiene</option>
+              <option>Customer Service Skills</option>
+              <option>Delivery Protocol & Safety</option>
+              <option>POS & Order Management</option>
+              <option>Workplace Safety & Cleaning</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Start Date</label>
+            <input type="date" id="train-date"/>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="closeModal('addTrainingModal')">Cancel</button>
+            <button type="submit" class="btn-primary">Assign Training</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: PERFORMANCE ====== -->
+  <section class="page" id="page-performance">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Performance Monitoring Dashboard</h1>
+        <p class="page-sub">Track employee performance, ratings and supervisor assessments</p>
+      </div>
+    </div>
+
+    <div class="kpi-grid four-col">
+      <div class="kpi-card kpi-green"><div class="kpi-icon">⭐</div><div class="kpi-value">4.2</div><div class="kpi-label">Avg Performance Score</div><div class="kpi-trend up">Out of 5.0</div></div>
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">🏆</div><div class="kpi-value">8</div><div class="kpi-label">High Performers</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-icon">📋</div><div class="kpi-value">14</div><div class="kpi-label">Meeting Expectations</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-icon">⚠️</div><div class="kpi-value">2</div><div class="kpi-label">Needs Improvement</div></div>
+    </div>
+
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Performance Score by Department</h3></div>
+        <canvas id="perfDeptChart" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Rating Distribution</h3></div>
+        <canvas id="ratingChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">📊 Employee Performance Records</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Employee</th><th>Department</th><th>Attendance</th><th>Work Quality</th><th>Customer Feedback</th><th>Punctuality</th><th>Overall</th><th>Rating</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Suresh Kumar (Chef)</td><td>Kitchen</td>
+              <td><div class="mini-bar"><div style="width:96%;background:#10b981"></div></div>96%</td>
+              <td><div class="mini-bar"><div style="width:92%;background:#3b82f6"></div></div>92%</td>
+              <td><div class="mini-bar"><div style="width:88%;background:#f97316"></div></div>88%</td>
+              <td><div class="mini-bar"><div style="width:95%;background:#8b5cf6"></div></div>95%</td>
+              <td><strong>92%</strong></td><td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>Manjit Singh</td><td>Kitchen</td>
+              <td><div class="mini-bar"><div style="width:91%;background:#10b981"></div></div>91%</td>
+              <td><div class="mini-bar"><div style="width:85%;background:#3b82f6"></div></div>85%</td>
+              <td><div class="mini-bar"><div style="width:80%;background:#f97316"></div></div>80%</td>
+              <td><div class="mini-bar"><div style="width:88%;background:#8b5cf6"></div></div>88%</td>
+              <td><strong>86%</strong></td><td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>Anita Devi</td><td>Service</td>
+              <td><div class="mini-bar"><div style="width:88%;background:#10b981"></div></div>88%</td>
+              <td><div class="mini-bar"><div style="width:90%;background:#3b82f6"></div></div>90%</td>
+              <td><div class="mini-bar"><div style="width:94%;background:#f97316"></div></div>94%</td>
+              <td><div class="mini-bar"><div style="width:85%;background:#8b5cf6"></div></div>85%</td>
+              <td><strong>89%</strong></td><td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>Ravi Sharma</td><td>Delivery</td>
+              <td><div class="mini-bar"><div style="width:82%;background:#10b981"></div></div>82%</td>
+              <td><div class="mini-bar"><div style="width:78%;background:#3b82f6"></div></div>78%</td>
+              <td><div class="mini-bar"><div style="width:75%;background:#f97316"></div></div>75%</td>
+              <td><div class="mini-bar"><div style="width:80%;background:#8b5cf6"></div></div>80%</td>
+              <td><strong>79%</strong></td><td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>Harpreet Kaur</td><td>Service</td>
+              <td><div class="mini-bar"><div style="width:72%;background:#eab308"></div></div>72%</td>
+              <td><div class="mini-bar"><div style="width:70%;background:#eab308"></div></div>70%</td>
+              <td><div class="mini-bar"><div style="width:68%;background:#eab308"></div></div>68%</td>
+              <td><div class="mini-bar"><div style="width:74%;background:#eab308"></div></div>74%</td>
+              <td><strong>71%</strong></td><td>⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>Dinesh Yadav</td><td>Support</td>
+              <td><div class="mini-bar"><div style="width:95%;background:#10b981"></div></div>95%</td>
+              <td><div class="mini-bar"><div style="width:88%;background:#3b82f6"></div></div>88%</td>
+              <td><div class="mini-bar"><div style="width:80%;background:#f97316"></div></div>80%</td>
+              <td><div class="mini-bar"><div style="width:92%;background:#8b5cf6"></div></div>92%</td>
+              <td><strong>89%</strong></td><td>⭐⭐⭐⭐⭐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Performance Criteria -->
+    <div class="card">
+      <h3 class="card-title">📌 Performance Evaluation Criteria</h3>
+      <div class="criteria-grid">
+        <div class="criteria-item">
+          <div class="c-icon">📅</div>
+          <div class="c-title">Attendance & Punctuality</div>
+          <div class="c-desc">Daily attendance, time-in/out records, leave usage</div>
+        </div>
+        <div class="criteria-item">
+          <div class="c-icon">⭐</div>
+          <div class="c-title">Work Quality</div>
+          <div class="c-desc">Food preparation quality, presentation, consistency</div>
+        </div>
+        <div class="criteria-item">
+          <div class="c-icon">🤝</div>
+          <div class="c-title">Customer Feedback</div>
+          <div class="c-desc">Ratings and reviews from dine-in and delivery customers</div>
+        </div>
+        <div class="criteria-item">
+          <div class="c-icon">👁</div>
+          <div class="c-title">Supervisor Observations</div>
+          <div class="c-desc">Daily observations and monthly reviews by managers</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: ATTENDANCE ====== -->
+  <section class="page" id="page-attendance">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Leave & Attendance Dashboard</h1>
+        <p class="page-sub">Monthly attendance records, leave tracking and work hours analysis</p>
+      </div>
+      <button class="export-btn" onclick="openLeaveModal()">+ Apply Leave</button>
+    </div>
+
+    <div class="kpi-grid four-col">
+      <div class="kpi-card kpi-green"><div class="kpi-icon">✅</div><div class="kpi-value">94%</div><div class="kpi-label">Overall Attendance Rate</div><div class="kpi-trend up">This Month</div></div>
+      <div class="kpi-card kpi-orange"><div class="kpi-icon">🌴</div><div class="kpi-value">3</div><div class="kpi-label">Pending Leave Requests</div></div>
+      <div class="kpi-card kpi-blue"><div class="kpi-icon">🕐</div><div class="kpi-value">9.2h</div><div class="kpi-label">Avg Daily Work Hours</div></div>
+      <div class="kpi-card kpi-red"><div class="kpi-icon">❌</div><div class="kpi-value">32</div><div class="kpi-label">Absences This Month</div></div>
+    </div>
+
+    <!-- Attendance Calendar -->
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Monthly Attendance Trend – October 2026</h3></div>
+        <canvas id="attendanceChart" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Leave Type Distribution</h3></div>
+        <canvas id="leaveChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Attendance Table -->
+    <div class="card">
+      <h3 class="card-title">📅 Staff Attendance Overview – October 2026 (Illustrative Sample)</h3>
+      <p class="page-sub">Sample names and attendance figures for demonstration only; these are not verified employee records.</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Employee</th><th>Department</th><th>Working Days</th><th>Present</th><th>Absent</th><th>Leave</th><th>Attendance %</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Suresh Kumar</td><td>Kitchen</td><td>26</td><td>25</td><td>1</td><td>0</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Manjit Singh</td><td>Kitchen</td><td>26</td><td>24</td><td>1</td><td>1</td><td><strong>92%</strong></td><td><span class="status-badge ok">Good</span></td></tr>
+            <tr><td>Anita Devi</td><td>Service</td><td>26</td><td>23</td><td>2</td><td>1</td><td><strong>88%</strong></td><td><span class="status-badge warn">Average</span></td></tr>
+            <tr><td>Ravi Sharma</td><td>Delivery</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Harpreet Kaur</td><td>Service</td><td>26</td><td>20</td><td>4</td><td>2</td><td><strong>77%</strong></td><td><span class="status-badge down">Below Target</span></td></tr>
+            <tr><td>Dinesh Yadav</td><td>Support</td><td>26</td><td>25</td><td>0</td><td>1</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Amandeep Gill</td><td>Kitchen</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Priya Sharma</td><td>Kitchen</td><td>26</td><td>25</td><td>1</td><td>0</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Gurpreet Singh</td><td>Kitchen</td><td>26</td><td>24</td><td>2</td><td>0</td><td><strong>92%</strong></td><td><span class="status-badge ok">Good</span></td></tr>
+            <tr><td>Neha Verma</td><td>Kitchen</td><td>26</td><td>23</td><td>3</td><td>0</td><td><strong>88%</strong></td><td><span class="status-badge warn">Average</span></td></tr>
+            <tr><td>Karan Deep</td><td>Kitchen</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Pooja Rani</td><td>Service</td><td>26</td><td>24</td><td>2</td><td>0</td><td><strong>92%</strong></td><td><span class="status-badge ok">Good</span></td></tr>
+            <tr><td>Simran Kaur</td><td>Service</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Rohit Kumar</td><td>Service</td><td>26</td><td>20</td><td>6</td><td>0</td><td><strong>77%</strong></td><td><span class="status-badge down">Below Target</span></td></tr>
+            <tr><td>Deepak Kumar</td><td>Service</td><td>26</td><td>23</td><td>3</td><td>0</td><td><strong>88%</strong></td><td><span class="status-badge warn">Average</span></td></tr>
+            <tr><td>Mohit Singh</td><td>Delivery</td><td>26</td><td>25</td><td>1</td><td>0</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Jaspreet Singh</td><td>Delivery</td><td>26</td><td>24</td><td>2</td><td>0</td><td><strong>92%</strong></td><td><span class="status-badge ok">Good</span></td></tr>
+            <tr><td>Amanpreet Kaur</td><td>Delivery</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Sunita Devi</td><td>Support</td><td>26</td><td>25</td><td>1</td><td>0</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Rajesh Kumar</td><td>Support</td><td>26</td><td>24</td><td>2</td><td>0</td><td><strong>92%</strong></td><td><span class="status-badge ok">Good</span></td></tr>
+            <tr><td>Arjun Mehta</td><td>Management</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Kavita Sharma</td><td>Management</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Nisha Gupta</td><td>Admin</td><td>26</td><td>25</td><td>1</td><td>0</td><td><strong>96%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+            <tr><td>Varun Malhotra</td><td>Admin</td><td>26</td><td>26</td><td>0</td><td>0</td><td><strong>100%</strong></td><td><span class="status-badge ok">Excellent</span></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td><strong>Sample total (24)</strong></td><td>All departments</td><td><strong>624</strong></td><td><strong>587</strong></td><td><strong>32</strong></td><td><strong>5</strong></td><td><strong>94%</strong></td><td><span class="status-badge info">Illustrative</span></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Leave Policy -->
+    <div class="card">
+      <h3 class="card-title">📋 Leave Policy Overview</h3>
+      <div class="policy-grid">
+        <div class="policy-item"><div class="p-icon" style="background:#10b98120;color:#10b981">🌴</div><div class="p-title">Casual Leave</div><div class="p-val">8 days/year</div></div>
+        <div class="policy-item"><div class="p-icon" style="background:#3b82f620;color:#3b82f6">🏥</div><div class="p-title">Medical Leave</div><div class="p-val">6 days/year</div></div>
+        <div class="policy-item"><div class="p-icon" style="background:#f9731620;color:#f97316">🎉</div><div class="p-title">Festival Leave</div><div class="p-val">As per Punjab govt.</div></div>
+        <div class="policy-item"><div class="p-icon" style="background:#8b5cf620;color:#8b5cf6">📅</div><div class="p-title">Weekly Off</div><div class="p-val">1 day/week (rotation)</div></div>
+      </div>
+    </div>
+
+    <!-- Leave Modal -->
+    <div class="modal-overlay" id="leaveModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Apply for Leave</h3>
+          <button class="modal-close" onclick="closeModal('leaveModal')">✕</button>
+        </div>
+        <form class="modal-form" onsubmit="applyLeave(event)">
+          <div class="form-row">
+            <label>Employee Name</label>
+            <input type="text" id="leave-emp" placeholder="Enter your name" required/>
+          </div>
+          <div class="form-row">
+            <label>Leave Type</label>
+            <select id="leave-type">
+              <option>Casual Leave</option>
+              <option>Medical Leave</option>
+              <option>Festival Leave</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>From Date</label>
+            <input type="date" id="leave-from" required/>
+          </div>
+          <div class="form-row">
+            <label>To Date</label>
+            <input type="date" id="leave-to" required/>
+          </div>
+          <div class="form-row">
+            <label>Reason</label>
+            <textarea id="leave-reason" placeholder="Brief reason for leave" rows="2"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="closeModal('leaveModal')">Cancel</button>
+            <button type="submit" class="btn-primary">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE: CHALLENGES ====== -->
+  <section class="page" id="page-challenges">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">HR Challenges & Solutions</h1>
+        <p class="page-sub">Identified challenges from manager interview at Khana Khazana, Phagwara</p>
+      </div>
+    </div>
+
+    <!-- Interview Banner -->
+    <div class="interview-banner">
+      <div class="ib-icon">🎙</div>
+      <div>
+        <div class="ib-title">Manager Interview Conducted</div>
+        <div class="ib-sub">Date: 16 September 2026 · Location: Khana Khazana, Phagwara</div>
+      </div>
+      <div class="ib-badge">HR Interview</div>
+    </div>
+
+    <!-- Challenges -->
+    <div class="challenges-grid">
+      <!-- Challenge 1 -->
+      <div class="challenge-card">
+        <div class="ch-number">01</div>
+        <div class="ch-icon">🚪</div>
+        <h3 class="ch-title">Employee Retention</h3>
+        <p class="ch-desc">Employees leave after gaining experience for better opportunities, higher salaries, or different work schedules elsewhere.</p>
+        <div class="ch-affected"><span>Employees affected</span><strong aria-label="Estimated 8 of 24 employees affected" title="Demo estimate; non-overlapping share of 24 employees">8</strong></div>
+        <div class="ch-section">
+          <strong>Root Causes:</strong>
+          <ul>
+            <li>Better job opportunities in other restaurants</li>
+            <li>Higher salary expectations over time</li>
+            <li>Demanding work hours during peak periods</li>
+            <li>Competition from urban restaurants</li>
+          </ul>
+        </div>
+        <div class="ch-section">
+          <strong>📊 Impact:</strong>
+          <div class="impact-bar-wrap">
+            <span>Severity</span>
+            <div class="progress-bar"><div class="progress-fill red" style="width:80%"></div></div>
+            <span>High</span>
+          </div>
+        </div>
+        <div class="solution-box">
+          <div class="sol-label">💡 Proposed Solution</div>
+          <ul>
+            <li>Introduce performance-based incentives</li>
+            <li>Offer yearly appraisals / salary reviews</li>
+            <li>Create a growth track for loyal employees</li>
+            <li>Improve work schedule flexibility</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Challenge 2 -->
+      <div class="challenge-card">
+        <div class="ch-number">02</div>
+        <div class="ch-icon">🔍</div>
+        <h3 class="ch-title">Finding Skilled Employees</h3>
+        <p class="ch-desc">Recruiting experienced cooks, chefs, and skilled service staff is difficult due to limited local availability and competition.</p>
+        <div class="ch-affected"><span>Employees affected</span><strong aria-label="Estimated 6 of 24 employees affected" title="Demo estimate; non-overlapping share of 24 employees">6</strong></div>
+        <div class="ch-section">
+          <strong>Root Causes:</strong>
+          <ul>
+            <li>Limited supply of experienced kitchen staff</li>
+            <li>High salary demands from experienced workers</li>
+            <li>Specialized culinary skills required</li>
+            <li>Competition from larger restaurant chains</li>
+          </ul>
+        </div>
+        <div class="ch-section">
+          <strong>📊 Impact:</strong>
+          <div class="impact-bar-wrap">
+            <span>Severity</span>
+            <div class="progress-bar"><div class="progress-fill orange" style="width:70%"></div></div>
+            <span>Medium-High</span>
+          </div>
+        </div>
+        <div class="solution-box">
+          <div class="sol-label">💡 Proposed Solution</div>
+          <ul>
+            <li>Post on Naukri.com, LinkedIn, local boards</li>
+            <li>Partner with local culinary institutes</li>
+            <li>Offer referral bonuses to existing staff</li>
+            <li>Build a talent pipeline proactively</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Challenge 3 -->
+      <div class="challenge-card">
+        <div class="ch-number">03</div>
+        <div class="ch-icon">📚</div>
+        <h3 class="ch-title">Training New Employees</h3>
+        <p class="ch-desc">Training during peak business hours is difficult; limited formal programs mean new hires take longer to become fully productive.</p>
+        <div class="ch-affected"><span>Employees affected</span><strong aria-label="Estimated 10 of 24 employees affected" title="Demo estimate; non-overlapping share of 24 employees">10</strong></div>
+        <div class="ch-section">
+          <strong>Root Causes:</strong>
+          <ul>
+            <li>Restaurant busy during regular training hours</li>
+            <li>No dedicated trainer or HR professional</li>
+            <li>Training depends on experienced staff availability</li>
+            <li>Lack of structured training materials</li>
+          </ul>
+        </div>
+        <div class="ch-section">
+          <strong>📊 Impact:</strong>
+          <div class="impact-bar-wrap">
+            <span>Severity</span>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:60%"></div></div>
+            <span>Medium</span>
+          </div>
+        </div>
+        <div class="solution-box">
+          <div class="sol-label">💡 Proposed Solution</div>
+          <ul>
+            <li>Implement this digital Training Tracker tool</li>
+            <li>Schedule training during off-peak hours</li>
+            <li>Create simple SOP booklets for each role</li>
+            <li>Assign a mentor to each new hire</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Q&A -->
+    <div class="card">
+      <h3 class="card-title">📋 Interview Questionnaire & Responses</h3>
+      <div class="qa-list">
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q1</span>What is the current number of employees at Khana Khazana?</div>
+          <div class="qa-a">There are currently 24 employees working across different departments including kitchen, service, delivery, support, management, and accounts.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q2</span>What are the different departments or work areas?</div>
+          <div class="qa-a">The restaurant operates through 6 departments: Kitchen (7), Service (6), Delivery (4), Cleaning/Support (3), Management (2), and Accounts/Admin (2).</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q3</span>How do you hire new employees?</div>
+          <div class="qa-a">New employees are mainly recruited through employee references, local contacts, and direct applications. Online job portals are occasionally used for skilled positions.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q4</span>Can you tell me about the selection process?</div>
+          <div class="qa-a">Candidates go through a basic interview conducted by the manager. Selection is based on skills, experience, and suitability for the job role. References are verified for key positions.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q5</span>How do you give employees different jobs?</div>
+          <div class="qa-a">Employees are assigned based on their skills, experience, and the operational needs of the restaurant. During peak hours, some cross-department support occurs.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q6</span>Do you train new employees?</div>
+          <div class="qa-a">Yes. New staff receive practical on-the-job training guided by experienced employees or supervisors. The training covers food handling, customer service, and workplace procedures.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q7</span>How do you measure employee performance?</div>
+          <div class="qa-a">Performance is assessed through attendance records, work quality, customer feedback, and daily supervisor observations. Feedback is given informally when improvements are needed.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q8</span>What employee welfare facilities are offered?</div>
+          <div class="qa-a">Employees receive regular wages, scheduled breaks, leave as applicable, and meals during shifts. Management maintains open communication and tries to provide a supportive work environment.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q9</span>What are the main HR problems in your restaurant?</div>
+          <div class="qa-a">The main challenges are finding suitable experienced employees, retaining staff who seek better opportunities, and managing staffing during peak business periods.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q10</span>Do employees leave frequently?</div>
+          <div class="qa-a">There is some turnover. Employees may leave after gaining experience for better job opportunities, higher salaries, or due to work schedule requirements.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q11</span>Is it hard to find skilled employees?</div>
+          <div class="qa-a">Yes, particularly for kitchen and service roles. Finding candidates with the right skills and experience takes time, and salary expectations can sometimes be a barrier.</div>
+        </div>
+        <div class="qa-item" onclick="toggleQA(this)">
+          <div class="qa-q"><span class="qa-num">Q12</span>How many more employees could possibly be needed in the future?</div>
+          <div class="qa-a">The management expects to need 2 additional employees — one in the Service department and one in Delivery — to meet increasing customer demand and maintain efficient operations.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====== PAGE: PROFILE ====== -->
+  <section class="page" id="page-profile">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">My Profile</h1>
+        <p class="page-sub">View and update your account information and preferences</p>
+      </div>
+      <button class="export-btn" onclick="saveProfile()">💾 Save Changes</button>
+    </div>
+
+    <!-- Profile Hero -->
+    <div class="profile-hero">
+      <div class="ph-cover"></div>
+      <div class="ph-body">
+        <div class="ph-avatar-wrap">
+          <div class="ph-avatar" id="profile-avatar-display">AA</div>
+          <div class="ph-avatar-edit" onclick="changeAvatar()">✏</div>
+        </div>
+        <div class="ph-info">
+          <h2 class="ph-name" id="ph-name-display">Ashif Ahmad</h2>
+          <div class="ph-role-row">
+            <span class="ph-badge" id="ph-role-display">HR Analyst</span>
+            <span class="ph-badge green">🟢 Active</span>
+          </div>
+          <div class="ph-meta">
+            <span id="ph-email-display">📧 ashif.ahmad@khanakhazana.com</span>
+            <span>📍 Phagwara, Punjab</span>
+          </div>
+        </div>
+        <div class="ph-stats">
+          <div class="ph-stat"><div class="phs-val">7</div><div class="phs-label">Pages Visited</div></div>
+          <div class="ph-stat"><div class="phs-val">24</div><div class="phs-label">Employees Tracked</div></div>
+          <div class="ph-stat"><div class="phs-val">5</div><div class="phs-label">Reports Generated</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Content Grid -->
+    <div class="profile-grid">
+
+      <!-- Personal Info -->
+      <div class="card profile-card">
+        <h3 class="card-title">👤 Personal Information</h3>
+        <div class="profile-form">
+          <div class="pf-row two-col">
+            <div class="form-row">
+              <label for="pf-fname">First Name</label>
+              <input type="text" id="pf-fname" value="Ashif" class="pf-input" required/>
+            </div>
+            <div class="form-row">
+              <label for="pf-lname">Last Name</label>
+              <input type="text" id="pf-lname" value="Ahmad" class="pf-input" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="pf-email">Email Address</label>
+            <input type="email" id="pf-email" value="ashif.ahmad@khanakhazana.com" class="pf-input" required/>
+          </div>
+          <div class="form-row">
+            <label for="pf-phone">Phone Number</label>
+            <input type="tel" id="pf-phone" value="+91 98765 43210" class="pf-input"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="card profile-card">
+        <h3 class="card-title">🔐 Security &amp; Login</h3>
+        <div class="profile-form">
+          <div class="form-row">
+            <label for="pf-username">Username</label>
+            <input type="text" id="pf-username" value="ashif" class="pf-input" readonly/>
+          </div>
+          <div class="form-row">
+            <label for="pf-cur-pass">Current Password</label>
+            <input type="password" id="pf-cur-pass" placeholder="Enter current password" class="pf-input"/>
+          </div>
+          <div class="form-row">
+            <label for="pf-new-pass">New Password</label>
+            <input type="password" id="pf-new-pass" placeholder="Enter new password" class="pf-input"/>
+          </div>
+          <div class="form-row">
+            <label for="pf-confirm-pass">Confirm New Password</label>
+            <input type="password" id="pf-confirm-pass" placeholder="Confirm new password" class="pf-input"/>
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:6px" onclick="changePassword()">🔒 Update Password</button>
+        </div>
+
+        <!-- Last Login -->
+        <div class="login-history">
+          <div class="lh-title">🕐 Login History</div>
+          <div class="lh-item"><span class="lh-dot green"></span><span>Today, 11:07 AM · Phagwara</span><span class="lh-tag">Current</span></div>
+          <div class="lh-item"><span class="lh-dot"></span><span>29 Oct 2026, 09:30 AM</span></div>
+          <div class="lh-item"><span class="lh-dot"></span><span>27 Oct 2026, 04:15 PM</span></div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div class="card profile-card">
+        <h3 class="card-title">⚙ Preferences</h3>
+        <div class="pref-list">
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-title">Dark Mode</div>
+              <div class="pref-sub">Use dark theme across all pages</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked onchange="toggleTheme(this)"/><span class="toggle-slider"></span></label>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <label class="pref-title" for="accent-color-picker">Accent Color</label>
+              <div class="pref-sub">Change the dashboard highlight color</div>
+            </div>
+            <input type="color" id="accent-color-picker" class="accent-color-picker" value="#f59e0b" aria-label="Choose dashboard accent color" oninput="updateAccentColor(this.value, false)" onchange="updateAccentColor(this.value, true)"/>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-title">Email Notifications</div>
+              <div class="pref-sub">Receive alerts for HR updates</div>
+            </div>
+            <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-title">Compact Sidebar</div>
+              <div class="pref-sub">Show icons only in sidebar</div>
+            </div>
+            <label class="toggle"><input type="checkbox" onchange="toggleCompact(this)"/><span class="toggle-slider"></span></label>
+          </div>
+          <div class="pref-item">
+            <div class="pref-info">
+              <div class="pref-title">Auto-refresh Data</div>
+              <div class="pref-sub">Refresh dashboard every 5 minutes</div>
+            </div>
+            <label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Activity Timeline -->
+    <div class="card">
+      <h3 class="card-title">🕐 Recent Activity</h3>
+      <div class="activity-timeline">
+        <div class="at-item">
+          <div class="at-dot" style="background:#10b981"></div>
+          <div class="at-content">
+            <div class="at-title">Logged in to HR Dashboard</div>
+            <div class="at-time">Today, 11:07 AM</div>
+          </div>
+        </div>
+        <div class="at-item">
+          <div class="at-dot" style="background:#3b82f6"></div>
+          <div class="at-content">
+            <div class="at-title">Viewed Workforce Planning page</div>
+            <div class="at-time">Today, 11:10 AM</div>
+          </div>
+        </div>
+        <div class="at-item">
+          <div class="at-dot" style="background:#f59e0b"></div>
+          <div class="at-content">
+            <div class="at-title">Added new candidate – Rahul Sharma</div>
+            <div class="at-time">Today, 11:15 AM</div>
+          </div>
+        </div>
+        <div class="at-item">
+          <div class="at-dot" style="background:#8b5cf6"></div>
+          <div class="at-content">
+            <div class="at-title">Assigned training module to Anita Devi</div>
+            <div class="at-time">Today, 11:22 AM</div>
+          </div>
+        </div>
+        <div class="at-item">
+          <div class="at-dot" style="background:#f97316"></div>
+          <div class="at-content">
+            <div class="at-title">Submitted leave request for Harpreet Kaur</div>
+            <div class="at-time">Today, 11:30 AM</div>
+          </div>
+        </div>
+        <div class="at-item">
+          <div class="at-dot" style="background:#06b6d4"></div>
+          <div class="at-content">
+            <div class="at-title">Reviewed HR Challenges &amp; interview Q&amp;A</div>
+            <div class="at-time">Today, 11:45 AM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- LOGOUT CONFIRMATION -->
+<div class="modal-overlay" id="logoutModal" role="presentation" onclick="if (event.target === this) closeModal('logoutModal')">
+  <section class="modal logout-modal" role="alertdialog" aria-modal="true" aria-labelledby="logout-title" aria-describedby="logout-description">
+    <div class="logout-icon" aria-hidden="true">⏻</div>
+    <h2 id="logout-title">Log out?</h2>
+    <p id="logout-description">Are you sure you want to log out of your account?</p>
+    <div class="logout-actions">
+      <button type="button" class="btn-cancel" onclick="closeModal('logoutModal')">Stay signed in</button>
+      <button type="button" class="btn-logout-confirm" onclick="confirmLogout()">Log out</button>
+    </div>
+  </section>
+</div>
+
+<!-- HR CHATBOT -->
+<div class="chatbot" id="chatbot">
+  <section class="chat-panel" id="chat-panel" aria-label="HR assistant chat" aria-hidden="true" hidden>
+    <header class="chat-header">
+      <div class="chat-brand-icon">✦</div>
+      <div class="chat-brand">
+        <strong>HR Assistant</strong>
+        <span><span class="chat-status-dot"></span>Ready to help</span>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close chat" onclick="toggleChatbot(false)">×</button>
+    </header>
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+      <div class="chat-message bot">
+        <div class="chat-bubble">Hi! I’m your Khana Khazana HR assistant. Ask me about workforce, recruitment, training, attendance, performance, or HR challenges.</div>
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chat-suggestions" aria-label="Suggested questions">
+      <button type="button" class="chat-suggestion">How many employees are there?</button>
+      <button type="button" class="chat-suggestion">What are the current HR challenges?</button>
+    </div>
+    <form class="chat-form" id="chat-form">
+      <label class="sr-only" for="chat-input">Message the HR assistant</label>
+      <input id="chat-input" type="text" placeholder="Ask an HR question..." autocomplete="off" maxlength="500" required/>
+      <button class="chat-send" type="submit" aria-label="Send message">➤</button>
+    </form>
+  </section>
+  <button class="chat-launcher" id="chat-launcher" type="button" aria-label="Open HR assistant chat" aria-controls="chat-panel" aria-expanded="false" onclick="toggleChatbot()">
+    <span class="chat-launcher-icon" aria-hidden="true">✦</span>
+    <span class="chat-launcher-label">HR Assistant</span>
+  </button>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
